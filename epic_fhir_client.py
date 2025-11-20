@@ -6,6 +6,11 @@ Connects to EPIC's free FHIR sandbox to extract patient data
 import requests
 from typing import Dict, List, Optional
 import json
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class EPICFHIRClient:
@@ -44,7 +49,7 @@ class EPICFHIRClient:
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching patient {patient_id}: {e}")
+            logger.error(f"Error fetching patient {patient_id}: {e}")
             return None
     
     def search_patients(self, **kwargs) -> List[Dict]:
@@ -69,7 +74,7 @@ class EPICFHIRClient:
                            if entry.get('resource', {}).get('resourceType') == 'Patient']
             return patients
         except requests.exceptions.RequestException as e:
-            print(f"Error searching patients: {e}")
+            logger.error(f"Error searching patients: {e}")
             return []
     
     def get_procedures(self, patient_id: str) -> List[Dict]:
@@ -96,7 +101,7 @@ class EPICFHIRClient:
                             if entry.get('resource', {}).get('resourceType') == 'Procedure']
             return procedures
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching procedures for patient {patient_id}: {e}")
+            logger.error(f"Error fetching procedures for patient {patient_id}: {e}")
             return []
     
     def get_observations(self, patient_id: str, category: Optional[str] = None) -> List[Dict]:
@@ -126,7 +131,7 @@ class EPICFHIRClient:
                               if entry.get('resource', {}).get('resourceType') == 'Observation']
             return observations
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching observations for patient {patient_id}: {e}")
+            logger.error(f"Error fetching observations for patient {patient_id}: {e}")
             return []
     
     def get_conditions(self, patient_id: str) -> List[Dict]:
@@ -153,7 +158,7 @@ class EPICFHIRClient:
                             if entry.get('resource', {}).get('resourceType') == 'Condition']
             return conditions
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching conditions for patient {patient_id}: {e}")
+            logger.error(f"Error fetching conditions for patient {patient_id}: {e}")
             return []
     
     def get_medication_requests(self, patient_id: str) -> List[Dict]:
@@ -180,5 +185,5 @@ class EPICFHIRClient:
                              if entry.get('resource', {}).get('resourceType') == 'MedicationRequest']
             return medications
         except requests.exceptions.RequestException as e:
-            print(f"Error fetching medications for patient {patient_id}: {e}")
+            logger.error(f"Error fetching medications for patient {patient_id}: {e}")
             return []

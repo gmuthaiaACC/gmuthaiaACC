@@ -8,7 +8,12 @@ from fhir_to_cathpci_mapper import FHIRToCathPCIMapper
 
 
 def create_sample_fhir_patient():
-    """Create a sample FHIR Patient resource"""
+    """
+    Create a sample FHIR Patient resource
+    
+    Note: This uses a simple patient ID 'sample-patient-001' for demonstration.
+    Real EPIC patient IDs are longer (e.g., 'Tbt3KuCY0B5PSrJvCu2j-PlK.aiHsu2xUjUM8bWpetXoB')
+    """
     return {
         "resourceType": "Patient",
         "id": "sample-patient-001",

@@ -9,6 +9,7 @@ from datetime import datetime
 from typing import List, Dict
 from epic_fhir_client import EPICFHIRClient
 from fhir_to_cathpci_mapper import FHIRToCathPCIMapper
+import config
 
 
 class FHIRToCathPCIExtractor:
@@ -186,16 +187,13 @@ def main():
     # Initialize extractor
     extractor = FHIRToCathPCIExtractor()
     
-    # Example EPIC sample patient IDs (these are publicly available test patients)
+    # Load patient IDs from configuration
     # Note: These IDs may need to be updated based on EPIC's current sandbox data
-    sample_patient_ids = [
-        "Tbt3KuCY0B5PSrJvCu2j-PlK.aiHsu2xUjUM8bWpetXoB",  # Sample patient from EPIC
-        "erXuFYUfucBZaryVksYEcMg3",  # Another sample patient
-    ]
+    sample_patient_ids = config.SAMPLE_PATIENT_IDS
     
     print("\nAttempting to extract data from EPIC FHIR sandbox...")
     print("Note: Using EPIC's public sandbox - some patient IDs may not be available")
-    print("\nIf you have specific patient IDs, you can modify the sample_patient_ids list")
+    print("\nIf you have specific patient IDs, update them in config.py")
     print(f"or call extractor.extract_and_convert(patient_id) directly\n")
     
     # Try to extract data for sample patients

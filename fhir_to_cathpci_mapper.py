@@ -204,12 +204,15 @@ class FHIRToCathPCIMapper:
     
     def _calculate_bmi(self, observations: List[Dict]) -> Optional[float]:
         """Calculate BMI from height and weight observations"""
+        # Threshold to distinguish meters from centimeters
+        MIN_HEIGHT_IN_METERS = 3.0
+        
         height = self._extract_vital_sign(observations, 'height')
         weight = self._extract_vital_sign(observations, 'weight')
         
         if height and weight:
             # Assuming height in cm and weight in kg
-            height_m = height / 100 if height > 3 else height  # Convert cm to m if needed
+            height_m = height / 100 if height > MIN_HEIGHT_IN_METERS else height  # Convert cm to m if needed
             bmi = weight / (height_m ** 2)
             return round(bmi, 2)
         return None
@@ -231,7 +234,16 @@ class FHIRToCathPCIMapper:
         return ''
     
     def _extract_lesion_location(self, procedure: Dict) -> str:
-        """Extract lesion location from procedure"""
-        # This would typically come from procedure notes or specific extensions
-        # For now, extracting from procedure code or body site
-        return self._extract_access_site(procedure)
+        """
+        Extract lesion location from procedure
+        
+        Note: In FHIR, lesion location is often not explicitly captured in the
+        Procedure resource. It may be in:
+        - DocumentReference (procedure notes)
+        - DiagnosticReport (cath lab report)
+        - Procedure extensions
+        This implementation returns empty string as placeholder.
+        Enhanced implementation should parse procedure notes or specific extensions.
+        """
+        # TODO: Implement proper lesion location extraction from procedure notes
+        return ""
