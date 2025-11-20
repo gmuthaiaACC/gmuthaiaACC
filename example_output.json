@@ -1,0 +1,49 @@
+{
+  "demographics": {
+    "patient_id": "Tbt3KuCY0B5PSrJvCu2j-PlK.aiHsu2xUjUM8bWpetXoB",
+    "medical_record_number": "999-99-9999",
+    "date_of_birth": "1963-01-01",
+    "gender": "M",
+    "race": "White",
+    "ethnicity": "Not Hispanic or Latino",
+    "name": "Jason Argonaut",
+    "address": {
+      "street": "123 Main Street",
+      "city": "Verona",
+      "state": "WI",
+      "postal_code": "53593",
+      "country": "USA"
+    }
+  },
+  "procedures": [
+    {
+      "procedure_id": "cardiac-cath-001",
+      "procedure_date": "2024-01-15T10:30:00Z",
+      "procedure_type": "Diagnostic Cardiac Catheterization",
+      "procedure_status": "completed",
+      "diabetes": true,
+      "hypertension": true,
+      "smoking_status": "Former smoker",
+      "family_history_cad": true,
+      "hemoglobin": 14.2,
+      "creatinine": 1.1,
+      "total_cholesterol": 210,
+      "ldl": 130,
+      "hdl": 45,
+      "height": 178,
+      "weight": 85,
+      "bmi": 26.83,
+      "systolic_bp": 138,
+      "diastolic_bp": 88,
+      "indication": "Chest pain, suspected coronary artery disease",
+      "access_site": "Right radial artery",
+      "lesion_location": "Left anterior descending artery"
+    }
+  ],
+  "raw_fhir_data": {
+    "patient_id": "Tbt3KuCY0B5PSrJvCu2j-PlK.aiHsu2xUjUM8bWpetXoB",
+    "procedure_count": 1,
+    "observation_count": 12,
+    "condition_count": 3
+  }
+}
