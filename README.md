@@ -41,3 +41,12 @@ python demo_fhir_to_cathpci.py
 ✅ Extracts patient demographics, procedures, labs, vitals  
 ✅ Converts FHIR resources to CathPCI registry format  
 ✅ Includes offline demo with sample data  
+✅ **80 CathPCI data elements** in dictionary (29 currently mapped, 51 ready to add)  
+✅ Detailed guide for extending mappings  
+
+### Check What's Available
+```bash
+python show_mapping_status.py
+```
+
+See **[EXTENDING_MAPPINGS.md](EXTENDING_MAPPINGS.md)** to add more CathPCI elements.

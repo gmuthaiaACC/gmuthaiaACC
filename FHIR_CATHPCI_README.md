@@ -14,6 +14,7 @@ The tool consists of three main components:
 
 - ✅ Connects to EPIC's free FHIR sandbox (no authentication required for demo)
 - ✅ Extracts patient demographics, procedures, observations, conditions, and medications
+- ✅ **80 CathPCI data elements** defined in dictionary (29 currently mapped, 51 ready to add)
 - ✅ Maps FHIR resources to CathPCI registry data elements including:
   - Patient demographics (name, DOB, gender, race, ethnicity)
   - Risk factors (diabetes, hypertension, smoking status)
@@ -21,6 +22,8 @@ The tool consists of three main components:
   - Vital signs (height, weight, BMI, blood pressure)
   - Procedure details (type, date, indication, access site)
 - ✅ Saves output in JSON format for further processing
+- ✅ Comprehensive guide for extending mappings (**[EXTENDING_MAPPINGS.md](EXTENDING_MAPPINGS.md)**)
+- ✅ Utility to show mapping status (`show_mapping_status.py`)
 
 ## Installation
 
@@ -42,7 +45,26 @@ cd gmuthaiaACC
 pip install -r requirements.txt
 ```
 
+3. Check mapping coverage (optional):
+```bash
+python show_mapping_status.py
+```
+
 ## Usage
+
+### Check Mapping Status
+
+Before starting, you can see what CathPCI elements are currently mapped and what's available to add:
+
+```bash
+python show_mapping_status.py
+```
+
+This displays:
+- **29 currently mapped elements**
+- **51 additional elements** ready to add
+- LOINC codes for FHIR Observations
+- SNOMED codes for FHIR Conditions
 
 ### Quick Start
 
@@ -129,46 +151,43 @@ The sandbox provides sample patient data without requiring authentication. For p
 
 ## CathPCI Data Elements
 
-The mapper extracts and converts the following CathPCI data elements:
+The tool includes **80 CathPCI data elements** in the data dictionary:
+- **29 currently mapped** and working
+- **51 additional elements** ready to add with simple configuration
 
-### Demographics
-- Patient ID
-- Medical Record Number
-- Date of Birth
-- Gender
-- Race
-- Ethnicity
-- Name
-- Address
+### Currently Mapped (29 elements)
 
-### Risk Factors
-- Diabetes
-- Hypertension
-- Smoking Status
-- Family History of CAD
+#### Demographics (8 elements)
+- Patient ID, Medical Record Number, Date of Birth, Gender
+- Race, Ethnicity, Name, Address
 
-### Lab Values
-- Hemoglobin
-- Creatinine
-- Total Cholesterol
-- LDL
-- HDL
+#### Risk Factors (4 elements)
+- Diabetes, Hypertension, Smoking Status, Family History of CAD
 
-### Vital Signs
-- Height
-- Weight
-- BMI
-- Systolic Blood Pressure
-- Diastolic Blood Pressure
+#### Lab Values (5 elements)
+- Hemoglobin, Creatinine, Total Cholesterol, LDL, HDL
 
-### Procedure Details
-- Procedure ID
-- Procedure Date
-- Procedure Type
-- Status
-- Indication
-- Access Site
-- Lesion Location
+#### Vital Signs (5 elements)
+- Height, Weight, BMI, Systolic Blood Pressure, Diastolic Blood Pressure
+
+#### Procedure Details (7 elements)
+- Procedure ID, Procedure Date, Procedure Type, Status
+- Indication, Access Site, Lesion Location
+
+### Available to Add (51+ elements)
+
+See `cathpci_data_dictionary.py` for the complete catalog including:
+- **8 additional risk factors** (prior MI, prior PCI, PAD, etc.)
+- **8 additional lab values** (HbA1c, troponin, BNP, etc.)
+- **4 additional vital signs** (heart rate, O2 sat, etc.)
+- **17 additional procedure details** (contrast volume, fluoroscopy time, stents, etc.)
+- **6 medication elements** (aspirin, statins, beta blockers, etc.)
+- **6 outcome elements** (mortality, stroke, complications, etc.)
+- **And more...**
+
+**To add elements:** See **[EXTENDING_MAPPINGS.md](EXTENDING_MAPPINGS.md)** for step-by-step instructions.
+
+**Note:** The CathPCI Registry contains 1000+ total data elements. This implementation focuses on commonly used elements and provides a framework to add more as needed.
 
 ## Output Format
 
@@ -205,6 +224,31 @@ The tool generates JSON output with the following structure:
 ```
 
 ## Extending the Tool
+
+**Important:** The tool currently maps **29 core elements**. To add more CathPCI data elements, see the comprehensive guide: **[EXTENDING_MAPPINGS.md](EXTENDING_MAPPINGS.md)**
+
+This guide includes:
+- Complete list of 51+ elements ready to add
+- Step-by-step instructions with code examples
+- LOINC and SNOMED code references
+- Examples for lab values, risk factors, medications, and outcomes
+
+### Quick Example: Adding HbA1c
+
+1. Check it's available:
+```bash
+python show_mapping_status.py  # Shows hba1c in available lab values
+```
+
+2. Add to mapper (`fhir_to_cathpci_mapper.py`):
+```python
+# In map_procedure_to_cathpci, add to Lab Values section:
+'hba1c': self._extract_lab_value(observations, 'hba1c'),
+```
+
+That's it! The LOINC code mapping is already defined in `cathpci_data_dictionary.py`.
+
+See **[EXTENDING_MAPPINGS.md](EXTENDING_MAPPINGS.md)** for complete details.
 
 ### Adding New FHIR Resources
 

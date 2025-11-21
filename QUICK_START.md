@@ -12,7 +12,20 @@ This tool connects to EPIC EMR's free FHIR (Fast Healthcare Interoperability Res
 pip install -r requirements.txt
 ```
 
-### 2. Run the Demo
+### 2. See What's Available
+
+Check the mapping coverage and available CathPCI elements:
+
+```bash
+python show_mapping_status.py
+```
+
+This shows:
+- Currently mapped elements (29)
+- Available elements to add (51+)
+- LOINC and SNOMED codes for mapping
+
+### 3. Run the Demo
 
 The easiest way to see how the tool works is to run the demo script:
 
@@ -36,6 +49,31 @@ python cathpci_extractor.py
 
 **Note**: This requires internet access to EPIC's FHIR endpoint. If you're in a restricted network environment, the connection may fail. The demo script works offline.
 
+## Extending the Mappings
+
+The tool currently maps **29 core CathPCI elements** out of 1000+ available. To see what's available and add more:
+
+### Check Mapping Status
+
+```bash
+python show_mapping_status.py
+```
+
+This displays:
+- Currently mapped elements (29)
+- Available elements ready to add (51)
+- LOINC codes for lab observations
+- SNOMED codes for conditions
+
+### Add New Elements
+
+See **[EXTENDING_MAPPINGS.md](EXTENDING_MAPPINGS.md)** for detailed step-by-step instructions on adding:
+- Lab values (HbA1c, troponin, BNP, etc.)
+- Risk factors (prior MI, prior PCI, PAD, etc.)
+- Medications (aspirin, statins, beta blockers, etc.)
+- Procedure details (contrast volume, fluoroscopy time, stents, etc.)
+- Outcomes (mortality, stroke, bleeding, etc.)
+
 ## File Structure
 
 ```
@@ -43,12 +81,15 @@ python cathpci_extractor.py
 ├── README.md                      # Original GitHub profile README
 ├── FHIR_CATHPCI_README.md        # Detailed documentation
 ├── QUICK_START.md                # This file
+├── EXTENDING_MAPPINGS.md         # Guide to adding more CathPCI elements
 ├── requirements.txt              # Python dependencies
 ├── config.py                     # Configuration (FHIR endpoint, patient IDs)
+├── cathpci_data_dictionary.py    # CathPCI data elements catalog (80 elements)
 ├── epic_fhir_client.py           # FHIR client to connect to EPIC
 ├── fhir_to_cathpci_mapper.py     # Converter from FHIR to CathPCI format
 ├── cathpci_extractor.py          # Main extraction tool
 ├── demo_fhir_to_cathpci.py       # Demo with sample data (works offline)
+├── show_mapping_status.py        # Utility to show mapping coverage
 └── example_output.json           # Example CathPCI output
 ```
 
