@@ -18,3 +18,35 @@
 gmuthaiaACC/gmuthaiaACC is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.
 --->
+
+## 🏥 EPIC FHIR to CathPCI Data Extraction Tool
+
+This repository now includes a Python-based tool for connecting to EPIC EMR's free FHIR resources and extracting data that can be converted to CathPCI (Cardiac Catheterization) format.
+
+### Quick Start
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the demo (works offline)
+python demo_fhir_to_cathpci.py
+```
+
+### Documentation
+- **[Quick Start Guide](QUICK_START.md)** - Get started in 5 minutes
+- **[Full Documentation](FHIR_CATHPCI_README.md)** - Detailed guide and API reference
+
+### Features
+✅ Connects to EPIC's free FHIR sandbox  
+✅ Extracts patient demographics, procedures, labs, vitals  
+✅ Converts FHIR resources to CathPCI registry format  
+✅ Includes offline demo with sample data  
+✅ **80 CathPCI data elements** in dictionary (29 currently mapped, 51 ready to add)  
+✅ Detailed guide for extending mappings  
+
+### Check What's Available
+```bash
+python show_mapping_status.py
+```
+
+See **[EXTENDING_MAPPINGS.md](EXTENDING_MAPPINGS.md)** to add more CathPCI elements.
